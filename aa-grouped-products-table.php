@@ -115,7 +115,12 @@ add_shortcode('aa_grouped_products', function ( $atts ) {
                                 <?php } else { ?>
 
                                     <div class="not_in_stock">
-                                        <a href="#">Zamówić</a>
+                                        <?php $link_query = add_query_arg( array(
+                                            'id' => $sub_product->get_id(),
+                                        ), get_site_url() . '/zamowienie-niedostepnego-produktu' ); ?>
+
+                                        <a href="<?php echo $link_query; ?>" rel="nofollow" class="aa_order_product_form" target="_blank">Zamówić</a>
+
                                     </div>
 
                                 <?php } ?>
@@ -162,4 +167,26 @@ add_action( 'woocommerce_process_product_meta', function ($post_id){
     } 
 });
 
+
+
+// SHORTCODES
+// sku
+add_shortcode('get_product_sku', function($attr) {
+    $product = wc_get_product($_GET['id']);
+    if($product) {
+        add_filter('show_admin_bar', '__return_false');
+        return $product->get_sku();
+    } else {
+        return '';
+    }
+});
+// title
+add_shortcode('get_product_title', function($attr) {
+    $product = wc_get_product($_GET['id']);
+    if($product) {
+        return $product->get_title();
+    } else {
+        return '';
+    }
+});
 
