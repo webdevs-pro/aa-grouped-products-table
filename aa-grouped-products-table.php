@@ -14,7 +14,7 @@ add_shortcode('aa_grouped_products', function ( $atts ) {
 
     global $woocommerce, $product, $post;
 
-    if ($product->is_type( 'grouped' )) {
+    if ($product && $product->is_type( 'grouped' )) {
 
         wp_enqueue_style('aa-grouped-css', plugins_url('css/style.css', __FILE__ ));
         wp_enqueue_script('aa-grouped-js',plugins_url('js/script.js', __FILE__ ), array('jquery'));
