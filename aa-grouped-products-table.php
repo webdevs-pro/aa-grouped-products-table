@@ -27,6 +27,7 @@ add_shortcode('aa_grouped_products', function ( $atts ) {
             'post__in' => $products,
             'orderby' => 'meta_value',      // sort by SKU
             'meta_key' => '_sku',           // sort by SKU
+            'posts_per_page' => -1,
         ) );
         
         if ($loop->have_posts()) { ?>
